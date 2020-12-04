@@ -37,16 +37,16 @@ app.post("/query", function(req, res) {
     exclamationPoints = exclamationPoints + "!";
     i++;
   }
-  return axios.get(`https://astley.vercel.app/?url=${encodeURIComponent(url)}`).then(function(json){
+  axios.get(`https://astley.vercel.app/?url=${encodeURIComponent(url)}`).then(function(json){
     rickroll =  json.data.rickroll;
     let resText = `${urlString} is ${rickroll?"":"not "}a rickroll${rickroll?exclamationPoints:"."}`;
     if (rickroll) {
       resText = resText.toUpperCase();
     }
-    return res.json({
+    res.json({
       items: [{
         text: resText
       }]
     });
-  });
+  }).catch(err => console.error(err));
 });
